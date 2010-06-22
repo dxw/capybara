@@ -232,5 +232,12 @@ shared_examples_for "click_button" do
       @session.click_button('With blank action')
       @session.body.should include('Postback')
     end
+
+    it "should visit the correct URL after following a redirect" do
+      @session.visit('/new_redirect')
+      @session.current_url.should =~ %r(http://[^/]+/newly/redirected)
+      @session.click_button('Submit')
+      @session.body.should include('No bugs')
+    end
   end
 end

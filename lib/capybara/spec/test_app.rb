@@ -50,6 +50,14 @@ class TestApp < Sinatra::Base
     redirect back
   end
 
+  get '/new_redirect' do
+    redirect '/newly/redirected'
+  end
+
+  get '/newly/redirected' do
+    '<form method=POST action=submit> <input type=submit value=Submit> </form>'
+  end
+
   get '/:view' do |view|
     erb view.to_sym
   end
@@ -67,6 +75,10 @@ class TestApp < Sinatra::Base
     rescue
       'No file uploaded'
     end
+  end
+
+  post '/newly/submit' do
+    'No bugs'
   end
 end
 
