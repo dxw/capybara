@@ -53,10 +53,15 @@ shared_examples_for "fill_in" do
     end
 
     it "should fill in a field with a custom type" do
-      pending "selenium doesn't seem to find custom fields" if @session.mode == :selenium
       @session.fill_in('Schmooo', :with => 'Schmooo is the game')
       @session.click_button('awesome')
       extract_results(@session)['schmooo'].should == 'Schmooo is the game'
+    end
+
+    it "should fill in a field without a type" do
+      @session.fill_in('Phone', :with => '+1 555 7022')
+      @session.click_button('awesome')
+      extract_results(@session)['phone'].should == '+1 555 7022'
     end
 
     it "should fill in a password field by name" do
