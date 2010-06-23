@@ -211,6 +211,7 @@ class Capybara::Driver::RackTest < Capybara::Driver::Base
 
   def submit(method, path, attributes)
     path = current_path if not path or path.empty?
+    path = URI.join('http://example.org'+current_path,path).to_s.sub(%r&^http://example.org&,'')
     send(method, path, attributes, env)
     follow_redirects!
   end
